@@ -1,0 +1,10 @@
+export const primaryColor = "#FFE600";
+export const secondaryColor = "#3483FA";
+export const secondaryActiveColor = "#2968C8"
+export const themeColor = "#EBEBEB";
+export const whiteColor = "#FFFFFF";
+export const darkColor = "#1A1A1A";
+export const errorColor = "#F23D4F";
+export const successColor = "#00A650";
+export const grayColor = "#9d9d9d";
+export const blueLightColor = "#D4DEEC";
