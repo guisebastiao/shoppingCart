@@ -13,11 +13,11 @@ import {
 
 export const Pagination = ({ pagination }) => {
   const [pages, setPages] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
   const { offset, limit, total } = pagination;
   const pagesCount = Math.ceil(total / limit);
-  const range = 5;
+  const range = 2;
 
   const handlePrevPage = () => {
     if (offset > 0) {
@@ -39,14 +39,21 @@ export const Pagination = ({ pagination }) => {
 
   const handlePage = (page) => {
     setSearchParams((state) => {
-      state.set("offset", page);
+      state.set("offset", page - 1);
       return state;
     });
   };
 
   useEffect(() => {
-    const startPage = Math.max(offset + 1, 1);
-    const endPage = Math.min(offset + 1 + range, pagesCount);
+    let startPage, endPage;
+
+    if (offset < range * 2) {
+      startPage = 1;
+      endPage = Math.min(range * 2 + 2, pagesCount);
+    } else {
+      startPage = Math.max(offset - range + 1, 1);
+      endPage = Math.min(offset + range + 2, pagesCount);
+    }
 
     setPages(
       Array.from({ length: endPage - startPage }, (_, i) => startPage + i)
@@ -57,10 +64,7 @@ export const Pagination = ({ pagination }) => {
     <PaginationRoot className="w-full flex items-center justify-center h-16">
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious
-            onClick={handlePrevPage}
-            disabled={offset + 1 <= 1}
-          />
+          <PaginationPrevious onClick={handlePrevPage} />
         </PaginationItem>
         {pages[0] > 1 && (
           <PaginationItem>
@@ -86,10 +90,7 @@ export const Pagination = ({ pagination }) => {
           </PaginationItem>
         )}
         <PaginationItem>
-          <PaginationNext
-            onClick={handleNextPage}
-            disabled={pagesCount >= offset + 1}
-          />
+          <PaginationNext onClick={handleNextPage} />
         </PaginationItem>
       </PaginationContent>
     </PaginationRoot>

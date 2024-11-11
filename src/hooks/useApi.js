@@ -4,17 +4,17 @@ import useAxios from "./useAxios";
 
 const apiService = {
   get: async ({ offset, limit, product }) => {
-    const { data } = await useAxios.get("/search", {
+    const { data } = await useAxios.get("/searc", {
       params: {
         limit,
         offset: offset,
         q: product,
-      }
+      },
     });
 
     return data;
-  }
-}
+  },
+};
 
 const apiSlice = {
   get: () => {
@@ -30,7 +30,7 @@ const apiSlice = {
     });
 
     return query;
-  }
-}
+  },
+};
 
 export default apiSlice;
