@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import {
+  ChevronsLeft,
+  ChevronsRight,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 
 import {
   Pagination as PaginationRoot,
   PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
   PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
 } from "@/components/ui/pagination";
 
 export const Pagination = ({ pagination }) => {
-  const [pages, setPages] = useState([]);
   const [, setSearchParams] = useSearchParams();
 
   const { offset, limit, total } = pagination;
-  const pagesCount = Math.ceil(total / limit);
-  const range = 2;
+  const totalPages = Math.ceil(total / limit);
 
   const handlePrevPage = () => {
     if (offset > 0) {
@@ -29,7 +29,7 @@ export const Pagination = ({ pagination }) => {
   };
 
   const handleNextPage = () => {
-    if (offset < pagesCount) {
+    if (offset < totalPages) {
       setSearchParams((state) => {
         state.set("offset", offset + 1);
         return state;
@@ -37,61 +37,58 @@ export const Pagination = ({ pagination }) => {
     }
   };
 
-  const handlePage = (page) => {
+  const handleFirstPage = () => {
     setSearchParams((state) => {
-      state.set("offset", page - 1);
+      state.set("offset", 0);
       return state;
     });
   };
 
-  useEffect(() => {
-    let startPage, endPage;
-
-    if (offset < range * 2) {
-      startPage = 1;
-      endPage = Math.min(range * 2 + 2, pagesCount);
-    } else {
-      startPage = Math.max(offset - range + 1, 1);
-      endPage = Math.min(offset + range + 2, pagesCount);
-    }
-
-    setPages(
-      Array.from({ length: endPage - startPage }, (_, i) => startPage + i)
-    );
-  }, [offset, limit]);
+  const handleLastPage = () => {
+    setSearchParams((state) => {
+      state.set("offset", totalPages);
+      return state;
+    });
+  };
 
   return (
-    <PaginationRoot className="w-full flex items-center justify-center h-16">
+    <PaginationRoot className="w-full max-w-5xl h-14 flex items-center justify-end">
       <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious onClick={handlePrevPage} />
-        </PaginationItem>
-        {pages[0] > 1 && (
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-        )}
-        {pages.map((page, index) =>
-          page === offset + 1 ? (
-            <PaginationItem key={index}>
-              <PaginationLink isActive>{page}</PaginationLink>
-            </PaginationItem>
-          ) : (
-            <PaginationItem key={index} className="cursor-pointer">
-              <PaginationLink onClick={() => handlePage(page)}>
-                {page}
-              </PaginationLink>
-            </PaginationItem>
-          )
-        )}
-        {pages[pages.length - 1] < pagesCount && (
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-        )}
-        <PaginationItem>
-          <PaginationNext onClick={handleNextPage} />
-        </PaginationItem>
+        <span className="text-zinc-50 text-sm mr-4">
+          Página {offset + 1} de {totalPages + 1}
+        </span>
+        <PaginationLink
+          onClick={handleFirstPage}
+          disabled={offset <= 0}
+          className="cursor-pointer"
+        >
+          <span className="sr-only">Primeira página</span>
+          <ChevronsLeft className="text-zinc-50" />
+        </PaginationLink>
+        <PaginationLink
+          onClick={handlePrevPage}
+          disabled={offset <= 0}
+          className="cursor-pointer"
+        >
+          <span className="sr-only">Página anterior</span>
+          <ChevronLeft className="text-zinc-50" />
+        </PaginationLink>
+        <PaginationLink
+          onClick={handleNextPage}
+          disabled={offset >= totalPages}
+          className="cursor-pointer"
+        >
+          <span className="sr-only">Proxima página</span>
+          <ChevronRight className="text-zinc-50" />
+        </PaginationLink>
+        <PaginationLink
+          onClick={handleLastPage}
+          disabled={offset >= totalPages}
+          className="cursor-pointer"
+        >
+          <span className="sr-only">Última página</span>
+          <ChevronsRight className="text-zinc-50" />
+        </PaginationLink>
       </PaginationContent>
     </PaginationRoot>
   );

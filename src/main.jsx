@@ -5,14 +5,17 @@ import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
 
 const queryClient = new QueryClient();
+import { CartProvider } from "./context/cartContext";
 import { router } from "./routes";
 import "./global.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} future={{ v7_startTransition: true }} />
-      <Toaster />
+      <CartProvider>
+        <RouterProvider router={router} future={{ v7_startTransition: true }} />
+        <Toaster />
+      </CartProvider>
     </QueryClientProvider>
   </StrictMode>
 );

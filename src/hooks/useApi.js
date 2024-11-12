@@ -4,7 +4,7 @@ import useAxios from "./useAxios";
 
 const apiService = {
   get: async ({ offset, limit, product }) => {
-    const { data } = await useAxios.get("/searc", {
+    const { data } = await useAxios.get("/search", {
       params: {
         limit,
         offset: offset,

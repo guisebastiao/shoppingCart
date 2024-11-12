@@ -29,17 +29,15 @@ const PaginationItem = React.forwardRef(({ className, ...props }, ref) => (
 PaginationItem.displayName = "PaginationItem";
 
 const PaginationLink = ({ className, isActive, size = "icon", ...props }) => (
-  <a
+  <button
     aria-current={isActive ? "page" : undefined}
     className={cn(
       buttonVariants({
-        variant: !isActive && "ghost",
+        variant: isActive ? "outline" : "ghost",
         size,
       }),
       className,
-      "select-none border-zinc-800 hover:bg-zinc-900 hover:border hover:border-zinc-800 hover:text-zinc-50",
-      isActive &&
-        "text-zinc-50 select-none bg-zinc-900 hover:bg-zinc-900 border border-zinc-800"
+      "border-zinc-800 hover:border hover:bg-zinc-900 hover:border-zinc-800 hover:text-zinc-50"
     )}
     {...props}
   />
@@ -50,7 +48,7 @@ const PaginationPrevious = ({ className, ...props }) => (
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
-    className={cn("gap-1 pl-2.5 cursor-pointer select-none", className)}
+    className={cn("gap-1 pl-2.5", className)}
     {...props}
   >
     <ChevronLeft className="h-4 w-4" />
@@ -63,7 +61,7 @@ const PaginationNext = ({ className, ...props }) => (
   <PaginationLink
     aria-label="Go to next page"
     size="default"
-    className={cn("gap-1 pr-2.5 cursor-pointer select-none", className)}
+    className={cn("gap-1 pr-2.5", className)}
     {...props}
   >
     <span>Seguinte</span>

@@ -5,7 +5,8 @@ export default {
   theme: {
     extend: {
       height: {
-        "height-calc": "calc(100vh - 80px)"
+        "height-calc": "calc(100vh - 80px)",
+        "height-calc-2": "calc(100vh - 108px)",
       },
       borderRadius: {
         lg: 'var(--radius)',

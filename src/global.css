@@ -69,16 +69,26 @@
   font-family: "Inter", sans-serif;
 }
 
-body::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 4px;
   height: 0;
 }
 
-body::-webkit-scrollbar-track {
-  background: #09090b;
+*::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background-color: #fff;
   border-radius: 5px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+body {
+  background: #09090b;
 }
