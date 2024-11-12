@@ -38,7 +38,7 @@ export const Cart = () => {
           <SheetTitle className="text-zinc-50">Carrinho</SheetTitle>
         </SheetHeader>
         <SheetDescription />
-        <div className="flex items-start h-height-calc-2 justify-center flex-col gap-1 py-3 overflow-y-scroll px-3">
+        <div className="flex items-center justify-start flex-col h-height-calc-2 gap-1 py-3 overflow-y-scroll px-3">
           {cart.map((product) => (
             <ProductCart key={product.id} product={product} />
           ))}
