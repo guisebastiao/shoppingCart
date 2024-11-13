@@ -1,6 +1,9 @@
 # ShoppingCart
 
 Este repositório contém um aplicativo semelhante ao Mercado Livre, criado com ReactJS. A aplicação permite que os usuários pesquisem produtos e visualizem eles, usando a API oficial do Mercado Libre.
+## Link do projeto
+
+- https://shoppingcartio.vercel.app
 
 ## Funcionalidades
 
