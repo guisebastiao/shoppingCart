@@ -15,6 +15,7 @@ Este repositório contém um aplicativo semelhante ao Mercado Livre, criado com 
 - **ReactJS** para lógica da aplicação.
 - **Hooks** para funcionalidade do To-Do.
 - **Tailwind** usado para estilização.
+- **ChadCN** para usar componentes prontos.
 
 ## API
 
